@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class 
+        table="TEST_EVENTS"
+        dynamic-insert="false" 
+        dynamic-update="false" 
+        mutable="true" 
+        name="ru.feib.popov.HibernateTutorial.Event" 
+        optimistic-lock="version" 
+        polymorphism="implicit" 
+        select-before-update="false"
+    >
+    <id 
+        name="id"
+        column="ID_EVENT"
+    >
+        <generator class="sequence">
+            <param name="sequence">SEQ_EVENTS</param>
+        </generator>
+    </id>
+    <property name="date" type="timestamp" column="EVENT_DATE"/>
+    <property name="title"/>
+    <set name="participants" table="TEST_PERSON_EVENT" inverse="true">
+        <key column="ID_EVENT"/>
+        <many-to-many column="ID_PERSON" class="ru.feib.popov.HibernateTutorial.Person"/>
+    </set>
+  </class>
+</hibernate-mapping>
